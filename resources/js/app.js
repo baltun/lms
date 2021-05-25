@@ -8,10 +8,16 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// add ElementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import locale from 'element-ui/lib/locale/lang/en';
 Vue.use(ElementUI, { locale })
+
+// add Vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import store from './store/store'
 
 
 /**
@@ -35,5 +41,6 @@ Vue.component('tree-component', require('./components/TreeComponent.vue').defaul
  */
 
 const app = new Vue({
+    store: store,
     el: '#app',
 });

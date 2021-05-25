@@ -1,53 +1,39 @@
 <template>
-    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+    <div>
+        <el-button type="success" icon="el-icon-plus" circle size="small"/>
+        <el-tree
+        :data="allLeafs.data"
+        :props="allLeafs.defaultProps"
+        @node-click="handleNodeClick"
+        >
+            <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span :class="data.children ? 'el-icon-plus' : 'el-icon-user'"/>
+                <span>
+                    {{ data.label }}
+                </span>
+            </span>
+        </el-tree>
+    </div>
 </template>
 
 <script>
+    // import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex'
     export default {
-        data() {
-            return {
-                data: [{
-                    label: 'Урок 1',
-                    children: [{
-                        label: 'Таблица 1-1',
-                        children: [{
-                            label: 'Диаграмма 1-1-1'
-                        }]
-                    }]
-                }, {
-                    label: 'Урок 2',
-                    children: [{
-                        label: 'Таблица 2-1',
-                        children: [{
-                            label: 'Диаграмма 2-1-1'
-                        }]
-                    }, {
-                        label: 'Таблица 2-2',
-                        children: [{
-                            label: 'Задание 2-2-1'
-                        }]
-                    }]
-                }, {
-                    label: 'Урок 3',
-                    children: [{
-                        label: 'Диаграмма 3-1',
-                        children: [{
-                            label: 'Таблица 3-1-1'
-                        }]
-                    }, {
-                        label: 'Таблица 3-2',
-                        children: [{
-                            label: 'Диаграмма 3-2-1'
-                        }]
-                    }]
-                }],
-                defaultProps: {
-                    children: 'children',
-                    label: 'label'
-                }
-            };
+        // data() {
+        //
+        // },
+        async mounted() {
+            console.log('mounted');
+            this.getLeafs();
         },
+
+        computed: mapGetters(["allLeafs"]),
+
         methods: {
+            ...mapActions([
+                "getLeafs",
+            ]),
             handleNodeClick(data) {
                 console.log(data);
             }

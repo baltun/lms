@@ -14,17 +14,15 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
 
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <el-button type="success" icon="el-icon-check" circle></el-button>
-                        </div>
+
                     </div>
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <tree-component></tree-component>
+                            <tree-component/>
                         </div>
+                        <div class="col-md-8">test</div>
                     </div>
                 </div>
             </div>
