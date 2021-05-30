@@ -3614,6 +3614,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 // import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3641,9 +3642,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["allLeafs"]),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["getLeafs"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["getLeafs", "getLayer"])), {}, {
     handleNodeClick: function handleNodeClick(data) {
       console.log(data);
+    },
+    loadLayer: function loadLayer(node, resolve) {
+      var $layer = this.getLayer(node.lavel);
+      console.log('layer', $layer);
+      return resolve($layer);
     }
   })
 });
@@ -101156,6 +101162,11 @@ var render = function() {
                   class: data.children ? "el-icon-plus" : "el-icon-user"
                 }),
                 _vm._v(" "),
+                _c("span", {
+                  class:
+                    data.type_id == 1 ? "el-icon-message-solid" : "el-icon-bell"
+                }),
+                _vm._v(" "),
                 _c("span", [
                   _vm._v(
                     "\n                " + _vm._s(data.label) + "\n            "
@@ -114857,7 +114868,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
@@ -114875,6 +114889,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   actions: {
+    getLayer: function getLayer(ctx, level) {
+      // const $layer = getLessonsTreeLayer(level);
+      var $layer = [{
+        label: 'урок',
+        leaf: 'no',
+        id: 1
+      }, {
+        label: 'урок 2',
+        leaf: 'no',
+        id: 2
+      }];
+      return $layer;
+    },
     getLeafs: function getLeafs(ctx) {
       var leafs = {
         data: [{
@@ -114890,6 +114917,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }]
         }, {
           label: 'Урок 2',
+          leaf: 'no',
           children: [{
             label: 'Таблица 2-1',
             leaf: 'yes',
@@ -114923,8 +114951,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           label: 'label'
         }
       };
-      console.log(leafs);
-      ctx.commit('updateLeafs', leafs);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://twi.lo/api/lessons/tree').then(function (res) {
+        var leafs = res.data;
+        console.log('leafs: '.leafs);
+        ctx.commit('updateLeafs', leafs);
+      })["catch"]();
     }
   }
 });

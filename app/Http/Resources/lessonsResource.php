@@ -14,13 +14,6 @@ class lessonsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'parent_id' => $this->parent_id,
-            'type_id' => $this->type_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
-        ];
+        return $this->resource;
     }
 }

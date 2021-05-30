@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default {
     state: {
         tree: []
@@ -17,6 +18,21 @@ export default {
     },
 
     actions: {
+        getLayer(ctx, level) {
+            // const $layer = getLessonsTreeLayer(level);
+            const $layer = [{
+                    label: 'урок',
+                    leaf: 'no',
+                    id: 1,
+                },
+                {
+                    label: 'урок 2',
+                    leaf: 'no',
+                    id: 2,
+                }
+            ];
+            return $layer;
+        },
         getLeafs(ctx) {
             const leafs = {
                 data: [{
@@ -32,6 +48,7 @@ export default {
                     }]
                 }, {
                     label: 'Урок 2',
+                    leaf: 'no',
                     children: [{
                         label: 'Таблица 2-1',
                         leaf: 'yes',
@@ -66,8 +83,14 @@ export default {
                     label: 'label'
                 }
             };
-            console.log(leafs)
-            ctx.commit('updateLeafs', leafs)
+            axios
+                .get('http://twi.lo/api/lessons/tree')
+                .then(res => {
+                    const leafs = res.data
+                    console.log('leafs: '.leafs)
+                    ctx.commit('updateLeafs', leafs)
+                })
+                .catch()
         }
     },
 }

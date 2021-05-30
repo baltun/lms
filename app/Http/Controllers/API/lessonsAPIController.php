@@ -6,9 +6,13 @@ use App\Http\Requests\API\CreatelessonsAPIRequest;
 use App\Http\Requests\API\UpdatelessonsAPIRequest;
 use App\Models\lessons;
 use App\Repositories\lessonsRepository;
+use App\Services\LessonsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\lessonsResource;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use PhpParser\Node\Expr\Cast\Object_;
 use Response;
 
 /**
@@ -20,10 +24,12 @@ class lessonsAPIController extends AppBaseController
 {
     /** @var  lessonsRepository */
     private $lessonsRepository;
+    private $lessonsService;
 
-    public function __construct(lessonsRepository $lessonsRepo)
+    public function __construct(lessonsRepository $lessonsRepo, LessonsService $lessonsService)
     {
         $this->lessonsRepository = $lessonsRepo;
+        $this->lessonsService = $lessonsService;
     }
 
     /**
@@ -35,13 +41,28 @@ class lessonsAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $lessons = $this->lessonsRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $lessons = $this->lessonsService->all($request);
 
         return $this->sendResponse(lessonsResource::collection($lessons), 'Lessons retrieved successfully');
+    }
+
+    public function getTree(Request $request)
+    {
+//        $lessonsService = App::make(LessonsService::class);
+
+        $lessonsTree = $this->lessonsService->getTree($request);
+
+        return $this->sendResponse(new lessonsResource($lessonsTree), 'Lessons tree retrieved successfully');
+
+    }
+
+    public function getTreeLayer(Request $request)
+    {
+        $parentId = $request->parent_id;
+
+        $lessonsTreeLayer = $this->lessonsService->getTreeLayer($parentId);
+
+        return $this->sendResponse(lessonsResource::collection($lessonsTreeLayer), 'Lessons tree layer retrieved successfully');
     }
 
     /**

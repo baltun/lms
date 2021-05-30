@@ -6,6 +6,7 @@ use App\Http\Requests\CreatelessonsRequest;
 use App\Http\Requests\UpdatelessonsRequest;
 use App\Repositories\lessonsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Services\LessonsService;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -14,10 +15,12 @@ class lessonsController extends AppBaseController
 {
     /** @var  lessonsRepository */
     private $lessonsRepository;
+    private $lessonsService;
 
-    public function __construct(lessonsRepository $lessonsRepo)
+    public function __construct(lessonsRepository $lessonsRepo, LessonsService $lessonsService)
     {
         $this->lessonsRepository = $lessonsRepo;
+        $this->lessonsService = $lessonsService;
     }
 
     /**

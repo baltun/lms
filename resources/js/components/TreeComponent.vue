@@ -8,6 +8,7 @@
         >
             <span class="custom-tree-node" slot-scope="{ node, data }">
                 <span :class="data.children ? 'el-icon-plus' : 'el-icon-user'"/>
+                <span :class="(data.type_id == 1) ? 'el-icon-message-solid' : 'el-icon-bell'"/>
                 <span>
                     {{ data.label }}
                 </span>
@@ -33,9 +34,15 @@
         methods: {
             ...mapActions([
                 "getLeafs",
+                "getLayer"
             ]),
             handleNodeClick(data) {
                 console.log(data);
+            },
+            loadLayer(node, resolve) {
+                const $layer = this.getLayer(node.lavel);
+                console.log('layer', $layer);
+                return resolve($layer);
             }
         }
     };

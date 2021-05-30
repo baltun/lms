@@ -177,6 +177,8 @@ return [
 
 //        \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
+        \App\Providers\TreeServiceProvider::class,
+
     ],
 
     /*
