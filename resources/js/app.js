@@ -33,6 +33,7 @@ import store from './store/store'
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('tree-component', require('./components/TreeComponent.vue').default);
+Vue.component('lesson-component', require('./components/LessonComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

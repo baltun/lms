@@ -19,7 +19,7 @@
 
 <script>
     // import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapActions, mapMutations} from 'vuex'
     export default {
         // data() {
         //
@@ -36,8 +36,12 @@
                 "getLeafs",
                 "getLayer"
             ]),
+            ...mapMutations([
+                "updateCurrentLesson",
+            ]),
             handleNodeClick(data) {
                 console.log(data);
+                this.updateCurrentLesson(data);
             },
             loadLayer(node, resolve) {
                 const $layer = this.getLayer(node.lavel);

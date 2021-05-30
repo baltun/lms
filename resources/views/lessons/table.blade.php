@@ -2,6 +2,7 @@
     <table class="table" id="lessons-table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Name</th>
         <th>Parent Id</th>
         <th>Type Id</th>
@@ -11,9 +12,10 @@
         <tbody>
         @foreach($lessons as $lessons)
             <tr>
+                <td>{{ $lessons->id }}</td>
                 <td>{{ $lessons->name }}</td>
-            <td>{{ $lessons->parent_id }}</td>
-            <td>{{ $lessons->type_id }}</td>
+                <td>{{ $lessons->parent_id }}</td>
+                <td>{{ $lessons->type_id }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['lessons.destroy', $lessons->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

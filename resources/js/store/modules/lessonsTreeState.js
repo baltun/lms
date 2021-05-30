@@ -1,19 +1,26 @@
 import axios from 'axios'
 export default {
     state: {
-        tree: []
+        tree: [],
+        lessonCurrent: []
     },
 
     getters: {
         allLeafs(state) {
             console.log(state.tree)
             return state.tree
+        },
+        getCurrentLesson(state) {
+            return state.lessonCurrent
         }
     },
 
     mutations: {
         updateLeafs(state, tree) {
             state.tree = tree
+        },
+        updateCurrentLesson(state, lesson) {
+            state.lessonCurrent = lesson
         }
     },
 

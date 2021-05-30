@@ -22,7 +22,9 @@
                         <div class="col-md-4">
                             <tree-component/>
                         </div>
-                        <div class="col-md-8">test</div>
+                        <div class="col-md-8">
+                            <lesson-component/>
+                        </div>
                     </div>
                 </div>
             </div>
