@@ -13,5 +13,6 @@
 <!-- Type Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('type_id', 'Type Id:') !!}
-    {!! Form::text('type_id', null, ['class' => 'form-control']) !!}
+{{--    {!! Form::text('type_id', null, ['class' => 'form-control']) !!}--}}
+    {!! Form::select('type_id', [1 => 'первый', 2 => 'второй'], ['class' => 'form-control']) !!}
 </div>
