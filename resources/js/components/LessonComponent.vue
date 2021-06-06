@@ -1,6 +1,6 @@
 <template>
     <div>
-        ID выбранного урока: {{getCurrentLesson.id}}
+        ID выбранного урока: {{currentLesson.id}}
     </div>
 </template>
 
@@ -15,7 +15,7 @@
             console.log('lesson mounted');
         },
 
-        computed: mapGetters(["getCurrentLesson"]),
+        computed: mapGetters(["currentLesson"]),
 
         methods: {
             ...mapActions([

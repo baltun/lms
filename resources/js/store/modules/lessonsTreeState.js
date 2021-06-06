@@ -2,7 +2,8 @@ import axios from 'axios'
 export default {
     state: {
         tree: [],
-        lessonCurrent: []
+        lessonCurrent: [],
+        lessonContext: []
     },
 
     getters: {
@@ -10,8 +11,11 @@ export default {
             console.log(state.tree)
             return state.tree
         },
-        getCurrentLesson(state) {
+        currentLesson(state) {
             return state.lessonCurrent
+        },
+        contextLesson(state) {
+            return state.lessonContext
         }
     },
 
@@ -21,6 +25,9 @@ export default {
         },
         updateCurrentLesson(state, lesson) {
             state.lessonCurrent = lesson
+        },
+        updateContextLesson(state, lesson) {
+            state.lessonContext = lesson
         }
     },
 
