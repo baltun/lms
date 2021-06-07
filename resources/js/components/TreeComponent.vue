@@ -9,7 +9,6 @@
         @node-contextmenu="openContextMenu"
         >
             <span class="custom-tree-node" slot-scope="{ node, data }">
-                text
                 <span :class="data.children ? 'el-icon-plus' : 'el-icon-user'"/>
                 <span :class="(data.type_id == 1) ? 'el-icon-message-solid' : 'el-icon-bell'"/>
                 <span>
