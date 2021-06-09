@@ -56,6 +56,22 @@ export default {
                     ctx.commit('updateLeafs', leafs)
                 })
                 .catch()
+        },
+        createLeaf(ctx) {
+
+        },
+        deleteLeaf(ctx, id) {
+            axios
+                .delete('/api/lessons/' + id)
+                .then(res => {
+                    console.log('удалили')
+                    // console.log('res: ' + res)
+                    //
+                    // const leafs = res.data
+                    // console.log('leafs: '.leafs)
+                    // ctx.commit('updateLeafs', leafs)
+                })
+                .catch()
         }
     },
 }

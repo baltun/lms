@@ -16,14 +16,16 @@
 
 
                     <div class="form-group row">
-
-                    </div>
-                    <div class="form-group row">
                         <div class="col-md-4">
                             <tree-component/>
                         </div>
                         <div class="col-md-8">
-                            <lesson-component/>
+                            <div class="form-group row">
+                                <lesson-component/>
+                            </div>
+                            <div class="form-group row">
+                                <change-button/>
+                            </div>
                         </div>
                     </div>
                 </div>

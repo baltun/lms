@@ -19,8 +19,8 @@
 
         <context-menu :display="showContextMenu" ref="menu">
             <ul id="right-click-menu">
-                <li><a>Добавить подпункт к {{contextLesson.label}}</a></li>
-                <li><a>Удалить пункт {{contextLesson.label}}</a></li>
+                <li @click="lessonCreate">Добавить подпункт к {{contextLesson.label}}</li>
+                <li @click="lessonDelete">Удалить пункт {{contextLesson.label}}</li>
             </ul>
         </context-menu>
     </div>
@@ -58,7 +58,9 @@
         methods: {
             ...mapActions([
                 "getLeafs",
-                "getLayer"
+                "getLayer",
+                "createLeaf",
+                "deleteLeaf"
             ]),
             ...mapMutations([
                 "updateCurrentLesson",
@@ -80,7 +82,45 @@
                 console.log('e:', e);
                 this.updateContextLesson(node);
                 this.$refs.menu.open(e);
-            }
+            },
+            lessonCreate(data) {
+                console.log(this.contextLesson)
+                this.$confirm('Пока этот пункт не работает')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            },
+            lessonDelete(data) {
+                // console.log(this.contextLesson)
+                this.$confirm('Удалить пункт меню, урок и всё его содержимое?')
+                    .then(
+                        () => {
+                            console.log('deleted')
+                            // resolve("done")
+                            const lessonIdObject = { id: this.contextLesson.id };
+                            this.$store.dispatch('lessons/delete', lessonIdObject)
+                            // this.deleteLeaf(this.contextLesson.id)
+                                .then(res => {
+                                    console.log('message: ' + res)
+                                    this.getLeafs()
+                                },
+                                err => {
+                                    сonsole.log('error: ' + err)
+                                })
+                                // .catch((exc) => {
+                                //     console.log('exception: ' + exc)
+                                // });
+                        },
+                        () => {
+                            console.log('canceled')
+                        }
+                    )
+                    // .catch(() => {
+                    //
+                    //     console.log('canceled')
+                    // });
+            },
         }
     };
 </script>
